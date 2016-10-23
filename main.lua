@@ -5,7 +5,7 @@ function love.load(arg)
   spelar = {
     x = 100,
     y = 0,
-    z = 10,
+    z = 100,
     width = 60,
     height = 60,
     fart = 500,
