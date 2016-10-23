@@ -3,8 +3,9 @@ function love.load(arg)
   gameState = "playing"
 
   spelar = {
-    x = 50,
+    x = 100,
     y = 0,
+    z = 10,
     width = 60,
     height = 60,
     fart = 500,
@@ -25,7 +26,6 @@ function love.load(arg)
       end
     end
   }
-
 
 end
 
