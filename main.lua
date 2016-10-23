@@ -32,8 +32,8 @@ end
 function love.update(dt)
   vindauge = {
     xmin = 0,
-    xmax = love.window:getWidth(),
-    ymax = love.window.getHeight(),
+    xmax = love.graphics.getWidth(),
+    ymax = love.graphics.getHeight(),
     ymin = 0
   }
   if love.keyboard.isDown(" ") then
