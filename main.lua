@@ -56,7 +56,6 @@ function love.update(dt)
   end
 
   if spelar.cooldown ~= 0 then spelar.cooldown = spelar.cooldown -1 end
-  if then end
 end
 
 
