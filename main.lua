@@ -1,9 +1,7 @@
 function love.load(arg)
+  dofile "spelar.lua"
   BULLETWIDTH = 10
   gameState = "playing"
-
-  dofile "spelar.lua"
-
 end
 
 function love.update(dt)
@@ -18,8 +16,7 @@ function love.update(dt)
   else spelar.y = vindauge.ymax - 20 end
 
   if love.keyboard.isDown("b") then
-    spelar.fire()
-  end
+    spelar.fire() end
 
   if love.keyboard.isDown("a") and spelar.x > vindauge.xmin then
     spelar.x = spelar.x - spelar.fart *dt end
@@ -29,13 +26,10 @@ function love.update(dt)
   for i,v in pairs(spelar.bullets) do
     if v.y < vindauge.ymin then
       table.remove(spelar.bullets, i) end
-    v.y = v.y - spelar.bulletSpeed
-  end
+    v.y = v.y - spelar.bulletSpeed  end
 
   if spelar.cooldown ~= 0 then spelar.cooldown = spelar.cooldown -2 end
 end
-
-
 
 function love.draw()
   if gameState == "playing" then
