@@ -9,12 +9,13 @@ end
 
 function love.update(dt)
 
-  NY_FIENDE_TIMER = NY_FIENDE_TIMER - 1
-
   if NY_FIENDE_TIMER <= 0 then
     enemies_controller:spawnEnemy()
     NY_FIENDE_TIMER = enemy.width + enemy.mellomrom
   end
+
+  NY_FIENDE_TIMER = NY_FIENDE_TIMER - 1
+
 
   vindauge = {
     xmin = 0,
@@ -47,11 +48,19 @@ function love.update(dt)
     v.y = v.y - spelar.bulletSpeed  end
 
   for i, v in pairs(enemies_controller.enemies) do
-    if v.x + v.width < vindauge.xmax then
+    if v.gaarMotHogre == true then
       v.x = v.x + v.speed
-    else v.y = v.y + 1 end
-    if v.x > 300 then
-      table.remove(enemies_controller.enemies, v)end
+      if v.x >= vindauge.xmax - v.width then
+        v.gaarMotHogre = false
+        v.y = v.y + v.height + v.mellomrom
+      end
+    elseif v.gaarMotHogre == false then
+      v.x = v.x - v.speed
+      if v.x == vindauge.xmin + v.mellomrom then
+        v.gaarMotHogre = true
+        v.y = v.y + v.height + v.mellomrom
+      end
+    end
   end
 
   if spelar.cooldown ~= 0 then spelar.cooldown = spelar.cooldown -2 end
@@ -67,12 +76,14 @@ function love.draw()
     for i, e in pairs(enemies_controller.enemies) do
       love.graphics.rectangle("fill", e.x, e.y, e.width, e.height) end
 
-    love.graphics.setColor(255, 255, 255)
-    --love.graphics.rectangle("fill", spelar.x, spelar.y, spelar.width, spelar.height)
+    love.graphics.setColor(
+      spelar.farge.raud,
+      spelar.farge.gron,
+      spelar.farge.blaa,
+      spelar.farge.alfa)
     love.graphics.polygon("fill",
         spelar.x,spelar.y,
         spelar.x + spelar.width,spelar.y,
         spelar.x + spelar.width/2,spelar.y - spelar.height)
   end
-
 end
