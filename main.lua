@@ -1,5 +1,5 @@
 function love.load(arg)
-  BULLETWIDTH = 10
+  BULLETWIDTH = 100
   gameState = "playing"
 
   spelar = {
