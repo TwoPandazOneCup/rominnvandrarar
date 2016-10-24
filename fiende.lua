@@ -2,13 +2,15 @@ enemies_controller = {}
 enemies_controller.enemies = {}
 function enemies_controller:spawnEnemy()
   enemy = {
-    x = 0,
-    y = 0,
+    x = 1,
+    y = 1,
     z = 100,
-    width = 60,
-    height = 60,
-    speed = 1 ,
+    width = 64,
+    height = 64,
+    speed = 100 ,
     mellomrom = 5,
+    gaarMotHogre = true,
+    farge  = {255, 255, 0, 255},
     table.insert(self.enemies, enemy)
   }
 end

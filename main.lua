@@ -11,7 +11,7 @@ function love.update(dt)
 
   if NY_FIENDE_TIMER <= 0 then
     enemies_controller:spawnEnemy()
-    NY_FIENDE_TIMER = enemy.width + enemy.mellomrom
+    NY_FIENDE_TIMER = (enemy.width + enemy.mellomrom) + dt
   end
 
   NY_FIENDE_TIMER = NY_FIENDE_TIMER - 1
@@ -49,14 +49,14 @@ function love.update(dt)
 
   for i, v in pairs(enemies_controller.enemies) do
     if v.gaarMotHogre == true then
-      v.x = v.x + v.speed
+      v.x = v.x + v.speed *dt
       if v.x >= vindauge.xmax - v.width then
         v.gaarMotHogre = false
         v.y = v.y + v.height + v.mellomrom
       end
     elseif v.gaarMotHogre == false then
-      v.x = v.x - v.speed
-      if v.x == vindauge.xmin + v.mellomrom then
+      v.x = v.x - v.speed *dt
+      if v.x <= vindauge.xmin + v.mellomrom then
         v.gaarMotHogre = true
         v.y = v.y + v.height + v.mellomrom
       end
@@ -73,14 +73,12 @@ function love.draw()
       love.graphics.rectangle("fill", v.x, v.y, BULLETWIDTH, 10)
     end
 
+
     for i, e in pairs(enemies_controller.enemies) do
+      love.graphics.setColor(e.farge)
       love.graphics.rectangle("fill", e.x, e.y, e.width, e.height) end
 
-    love.graphics.setColor(
-      spelar.farge.raud,
-      spelar.farge.gron,
-      spelar.farge.blaa,
-      spelar.farge.alfa)
+    love.graphics.setColor(spelar.farge)
     love.graphics.polygon("fill",
         spelar.x,spelar.y,
         spelar.x + spelar.width,spelar.y,
