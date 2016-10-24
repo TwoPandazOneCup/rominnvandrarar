@@ -55,9 +55,8 @@ function love.update(dt)
     v.y = v.y - spelar.bulletSpeed
   end
 
-  if spelar.cooldown ~= 0 then spelar.cooldown = spelar.cooldown -1 end
+  if spelar.cooldown ~= 0 then spelar.cooldown = spelar.cooldown -2 end
 end
-
 
 
 
