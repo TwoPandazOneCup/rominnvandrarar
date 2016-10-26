@@ -7,22 +7,29 @@ function love.load(arg)
   enemies_controller:spawnEnemy()
   NY_FIENDE_TIMER = 100
   NY_STOR_FIENDE_TIMER = 100
+  NY_ROTERANDE_FIENDE = 100
 end
 
 function love.update(dt)
 
   if NY_FIENDE_TIMER <= 0 then
     enemies_controller:spawnEnemy()
-    NY_FIENDE_TIMER = (enemy.spawnRate) + dt
+    NY_FIENDE_TIMER = (enemy.spawnRate) *dt
   end
 
   if NY_STOR_FIENDE_TIMER <= 0 then
     enemies_controller:spawnBigEnemy()
-    NY_STOR_FIENDE_TIMER = (bigEnemy.spawnRate) + dt
+    NY_STOR_FIENDE_TIMER = (bigEnemy.spawnRate)  *dt
+  end
+
+  if NY_ROTERANDE_FIENDE <= 0 then
+    enemies_controller:spawnRotatingEnemy()
+    NY_ROTERANDE_FIENDE = (rotatingEnemy.spawnRate) *dt
   end
 
   NY_FIENDE_TIMER = NY_FIENDE_TIMER - 1
   NY_STOR_FIENDE_TIMER = NY_STOR_FIENDE_TIMER -1
+  NY_ROTERANDE_FIENDE = NY_ROTERANDE_FIENDE - 1
 
 
   vindauge = {
