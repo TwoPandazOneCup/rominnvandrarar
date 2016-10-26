@@ -9,8 +9,26 @@ function enemies_controller:spawnEnemy()
     height = 64,
     speed = 100 ,
     mellomrom = 5,
+    spawnRate = 100,
     gaarMotHogre = true,
     farge  = {255, 255, 0, 255},
     table.insert(self.enemies, enemy)
   }
+end
+
+function enemies_controller:spawnBigEnemy()
+  bigEnemy = {
+        x = love.math.random(vindauge.xmin, vindauge.xmax),
+        y = 100,
+        z = 100,
+        width = 64,
+        height = 64,
+        speed = 100 ,
+        mellomrom = 5,
+        spawnRate = 100,
+        gaarMotHogre = nil,
+        farge  = {255, 100, 0, 255},
+      table.insert(self.enemies, bigEnemy)
+    }
+
 end
