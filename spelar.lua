@@ -9,7 +9,7 @@ spelar = {
   cooldown = 20,
   bulletSpeed = 5,
   bullets =  {},
-  farge =  { 255 ,255, 255, 255},
+  farge =  { 0 ,0, 255, 255},
 
 
   fire = function()
