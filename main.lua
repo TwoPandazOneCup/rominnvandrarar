@@ -2,7 +2,6 @@ function love.load(arg)
   dofile "spelar.lua"
   dofile "fiende.lua"
   dofile "funksjonar.lua"
-  BULLETWIDTH = 10
   gameState = "playing"
   enemies_controller:spawnEnemy()
   NY_FIENDE_TIMER = 100
@@ -65,15 +64,27 @@ function love.update(dt)
 --spawnar og flytta fiendane
   for i, v in pairs(enemies_controller.enemies) do
 
+
     for ii, vv in pairs(spelar.bullets) do
       if CheckCollision(
         v.x, v.y, v.width, v.height,
-        vv.x, vv.y, vv.width, vv.height
+        vv.x, vv.y, vv.w, vv.h
       ) then
           table.remove(spelar.bullets, ii)
           v.liv = v.liv -1
       end
     end
+
+
+      if CheckCollision(
+        v.x, v.y, v.height, v.height,
+        spelar.x, spelar.y, spelar.height, spelar.width
+      ) then
+        spelar.liv = spelar.liv -1
+        table.remove(enemies_controller.enemies, i)
+      end
+
+
 
     if v.gaarMotHogre == true then
       v.x = v.x + v.speed *dt
@@ -96,14 +107,14 @@ function love.update(dt)
   end
 end
 
-  if spelar.cooldown ~= 0 then spelar.cooldown = spelar.cooldown -2 end
+  if spelar.cooldown ~= 0 then spelar.cooldown = spelar.cooldown -1 end
 end
 
 function love.draw()
   if gameState == "playing" then
     love.graphics.setColor(255, 0, 0)
     for i,v in pairs(spelar.bullets) do
-      love.graphics.rectangle("fill", v.x, v.y, BULLETWIDTH, 10)
+      love.graphics.rectangle("fill", v.x, v.y, v.w, v.h)
     end
 
 
@@ -116,5 +127,6 @@ function love.draw()
         spelar.x,spelar.y,
         spelar.x + spelar.width,spelar.y,
         spelar.x + spelar.width/2,spelar.y - spelar.height)
+    love.graphics.print(spelar.liv, 50, 50)
   end
 end

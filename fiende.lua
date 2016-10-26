@@ -45,6 +45,7 @@ function enemies_controller:spawnBigEnemy()
             spawnRate = 5000,
             liv = 3,
             gaarMotHogre = nil,
+            roterar = true,
             farge  = {90, 100, 0, 255},
           table.insert(self.enemies, rotatingEnemy)
         }

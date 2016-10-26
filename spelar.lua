@@ -6,8 +6,9 @@ spelar = {
   height = 60,
   fart = 500,
   hoppHogd = 200,
-  cooldown = 20,
+  cooldown = 1,
   bulletSpeed = 5,
+  liv = 5,
   bullets =  {},
   farge =  { 0 ,0, 255, 255},
 
@@ -16,8 +17,8 @@ spelar = {
     bullet = {
       x = spelar.x + spelar.width /2 - BULLETWIDTH / 2,
       y = spelar.y - spelar.height,
-      height = 5,
-      width = 5
+      h = 5,
+      w = 90
       }
 
     if spelar.cooldown == 0 then
