@@ -4,17 +4,24 @@ function love.load(arg)
   BULLETWIDTH = 10
   gameState = "playing"
   enemies_controller:spawnEnemy()
-  NY_FIENDE_TIMER = 0
+  NY_FIENDE_TIMER = 100
+  NY_STOR_FIENDE_TIMER = 100
 end
 
 function love.update(dt)
 
   if NY_FIENDE_TIMER <= 0 then
     enemies_controller:spawnEnemy()
-    NY_FIENDE_TIMER = (enemy.width + enemy.mellomrom) + dt
+    NY_FIENDE_TIMER = (enemy.spawnRate) + dt
+  end
+
+  if NY_STOR_FIENDE_TIMER <= 0 then
+    enemies_controller:spawnBigEnemy()
+    NY_STOR_FIENDE_TIMER = (bigEnemy.spawnRate) + dt
   end
 
   NY_FIENDE_TIMER = NY_FIENDE_TIMER - 1
+  NY_STOR_FIENDE_TIMER = NY_STOR_FIENDE_TIMER -1
 
 
   vindauge = {
@@ -54,13 +61,14 @@ function love.update(dt)
         v.gaarMotHogre = false
         v.y = v.y + v.height + v.mellomrom
       end
+
     elseif v.gaarMotHogre == false then
       v.x = v.x - v.speed *dt
       if v.x <= vindauge.xmin + v.mellomrom then
         v.gaarMotHogre = true
         v.y = v.y + v.height + v.mellomrom
       end
-    end
+    else v.y = v.y + v.speed * dt end
   end
 
   if spelar.cooldown ~= 0 then spelar.cooldown = spelar.cooldown -2 end
