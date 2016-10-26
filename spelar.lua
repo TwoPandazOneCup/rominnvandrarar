@@ -15,7 +15,9 @@ spelar = {
   fire = function()
     bullet = {
       x = spelar.x + spelar.width /2 - BULLETWIDTH / 2,
-      y = spelar.y - spelar.height
+      y = spelar.y - spelar.height,
+      height = 5,
+      width = 5
       }
 
     if spelar.cooldown == 0 then

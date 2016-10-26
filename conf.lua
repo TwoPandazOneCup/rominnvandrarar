@@ -1,6 +1,6 @@
 function love.conf(t)
-  t.window.height = 600
-  t.window.width = 600
+  t.window.height = 500
+  t.window.width = 500
   t.window.resizable = true
   t.window.title = "Vindauge"
 

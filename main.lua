@@ -1,6 +1,7 @@
 function love.load(arg)
   dofile "spelar.lua"
   dofile "fiende.lua"
+  dofile "funksjonar.lua"
   BULLETWIDTH = 10
   gameState = "playing"
   enemies_controller:spawnEnemy()
@@ -54,7 +55,19 @@ function love.update(dt)
       table.remove(spelar.bullets, i) end
     v.y = v.y - spelar.bulletSpeed  end
 
+--spawnar og flytta fiendane
   for i, v in pairs(enemies_controller.enemies) do
+
+    for ii, vv in pairs(spelar.bullets) do
+      if CheckCollision(
+        v.x, v.y, v.width, v.height,
+        vv.x, vv.y, vv.width, vv.height
+      ) then
+          table.remove(spelar.bullets, ii)
+          v.liv = v.liv -1
+      end
+    end
+
     if v.gaarMotHogre == true then
       v.x = v.x + v.speed *dt
       if v.x >= vindauge.xmax - v.width then
@@ -69,7 +82,12 @@ function love.update(dt)
         v.y = v.y + v.height + v.mellomrom
       end
     else v.y = v.y + v.speed * dt end
+
+
+  if v.liv == 0 or v.y == 200 then
+      table.remove(enemies_controller.enemies, i)
   end
+end
 
   if spelar.cooldown ~= 0 then spelar.cooldown = spelar.cooldown -2 end
 end
