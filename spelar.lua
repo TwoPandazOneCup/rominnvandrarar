@@ -26,7 +26,7 @@ spelar = {
 
     if spelar.cooldown <= 0 then
       table.insert(spelar.bullets, bullet)
-      spelar.cooldown = 20
+      spelar.cooldown = 1
     end
   end
 }
