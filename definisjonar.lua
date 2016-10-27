@@ -1,0 +1,7 @@
+hogreKnapp = "d"
+vensteKnapp = "a"
+oppKnapp = "w"
+nedKnapp = "s"
+hoppKnapp = "lctrl"
+skyteKnapp = "space"
+omstartKnapp = "r"

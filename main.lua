@@ -2,6 +2,7 @@ function love.load(arg)
   dofile "spelar.lua"
   dofile "fiende.lua"
   dofile "funksjonar.lua"
+  dofile "definisjonar.lua"
   gameState = "playing"
   enemies_controller:spawnEnemy()
   NY_FIENDE_TIMER = 100
@@ -9,27 +10,21 @@ function love.load(arg)
   NY_ROTERANDE_FIENDE = 100
 end
 
+
+
+
 function love.update(dt)
+oppdaterOgSpawn(dt)
 
-  if NY_FIENDE_TIMER <= 0 then
-    enemies_controller:spawnEnemy()
-    NY_FIENDE_TIMER = (enemy.spawnRate) *dt
+
+
+
+  if spelar.liv <= 0 then
+    gameState = "dead"
   end
 
-  if NY_STOR_FIENDE_TIMER <= 0 then
-    enemies_controller:spawnBigEnemy()
-    NY_STOR_FIENDE_TIMER = (bigEnemy.spawnRate)  *dt
-  end
-
-  if NY_ROTERANDE_FIENDE <= 0 then
-    enemies_controller:spawnRotatingEnemy()
-    NY_ROTERANDE_FIENDE = (rotatingEnemy.spawnRate) *dt
-  end
-
-  NY_FIENDE_TIMER = NY_FIENDE_TIMER - 1
-  NY_STOR_FIENDE_TIMER = NY_STOR_FIENDE_TIMER -1
-  NY_ROTERANDE_FIENDE = NY_ROTERANDE_FIENDE - 1
-
+--[[
+]]
 
   vindauge = {
     xmin = 0,
@@ -41,20 +36,23 @@ function love.update(dt)
 
 
 
-  if love.keyboard.isDown(" ") then
+
+
+  if love.keyboard.isDown(skyteKnapp) then
+    spelar.fire()end
+
+  if love.keyboard.isDown(hoppKnapp) then
     spelar.y = vindauge.ymax - 20 - spelar.hoppHogd
   else
     spelar.y = vindauge.ymax - 20 end
 
-  if love.keyboard.isDown("b") then
-    spelar.fire()
-  end
-
-  if love.keyboard.isDown("a") and spelar.x > vindauge.xmin then
+  if love.keyboard.isDown(vensteKnapp) and spelar.x > vindauge.xmin then
     spelar.x = spelar.x - spelar.fart * dt end
 
-  if love.keyboard.isDown("d") and spelar.x + spelar.width < vindauge.xmax then
+  if love.keyboard.isDown(hogreKnapp) and spelar.x + spelar.width < vindauge.xmax then
     spelar.x = spelar.x + spelar.fart * dt end
+
+
 
   for i,v in pairs(spelar.bullets) do
     if v.y < vindauge.ymin then
@@ -107,8 +105,9 @@ function love.update(dt)
   end
 end
 
-  if spelar.cooldown ~= 0 then spelar.cooldown = spelar.cooldown -1 end
+  if spelar.cooldown >= 0 then spelar.cooldown = spelar.cooldown -1 end
 end
+
 
 function love.draw()
   if gameState == "playing" then

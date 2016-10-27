@@ -33,6 +33,7 @@ function enemies_controller:spawnBigEnemy()
       table.insert(self.enemies, bigEnemy)
     }
   end
+  
   function enemies_controller:spawnRotatingEnemy()
       rotatingEnemy = {
             x = love.math.random(vindauge.xmin, vindauge.xmax),

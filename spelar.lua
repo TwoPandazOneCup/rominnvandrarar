@@ -8,6 +8,7 @@ spelar = {
   hoppHogd = 200,
   cooldown = 1,
   bulletSpeed = 5,
+  bulletWidth = 5,
   liv = 5,
   bullets =  {},
   farge =  { 0 ,0, 255, 255},
@@ -15,10 +16,10 @@ spelar = {
 
   fire = function()
     bullet = {
-      x = spelar.x + spelar.width /2 - BULLETWIDTH / 2,
+      w = spelar.bulletWidth,
+      x = spelar.x + spelar.width /2 - spelar.bulletWidth / 2,
       y = spelar.y - spelar.height,
       h = 5,
-      w = 90
       }
 
     if spelar.cooldown == 0 then
