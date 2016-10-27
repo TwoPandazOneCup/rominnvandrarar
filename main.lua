@@ -83,7 +83,7 @@ oppdaterSpelar(dt, vindauge.ymax, vindauge.xmax)
       v.y = v.y + v.speed * dt end
 
 
-  if v.liv == 0 or v.y == 200 then
+  if v.liv <= 0 or v.y == 200 then
       table.remove(enemies_controller.enemies, i)
       if v.liv == 0 then
         spelar.poeng = spelar.poeng + v.poeng
