@@ -25,4 +25,43 @@ function oppdaterOgSpawn(dt)
      NY_FIENDE_TIMER = NY_FIENDE_TIMER - 1
      NY_STOR_FIENDE_TIMER = NY_STOR_FIENDE_TIMER -1
      NY_ROTERANDE_FIENDE = NY_ROTERANDE_FIENDE - 1
+
+     if spelar.cooldown < 1 then
+       spelar.cooldown = spelar.cooldown - 1 end
+end
+
+function oppdaterSpelar (dt)
+
+
+
+  if spelar.liv <= 0 then
+    gameState = "dead"
+  end
+
+  if gameState == "dead" and love.keyboard.isDown(omstartKnapp) then
+    gameState = "playing"
+    spelar.liv = spelar.startLiv
+    spelar.poeng = 0
+    enemies_controller.enemies = {}
+
+
+  end
+
+  if spelar.cooldown >= 1 then
+    spelar.cooldown = spelar.cooldown - 1 end
+
+  if love.keyboard.isDown(skyteKnapp) then
+    spelar.fire()end
+
+  if love.keyboard.isDown(hoppKnapp) then
+    spelar.y = vindauge.ymax - 20 - spelar.hoppHogd
+  else
+    spelar.y = vindauge.ymax - 20 end
+
+  if love.keyboard.isDown(vensteKnapp) and spelar.x > vindauge.xmin then
+    spelar.x = spelar.x - spelar.fart * dt end
+
+  if love.keyboard.isDown(hogreKnapp) and spelar.x + spelar.width < vindauge.xmax then
+    spelar.x = spelar.x + spelar.fart * dt end
+
 end
