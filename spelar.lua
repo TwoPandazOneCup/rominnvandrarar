@@ -9,7 +9,9 @@ spelar = {
   cooldown = 1,
   bulletSpeed = 5,
   bulletWidth = 5,
+  startLiv = 5,
   liv = 5,
+  poeng = 0,
   bullets =  {},
   farge =  { 0 ,0, 255, 255},
 
@@ -22,7 +24,7 @@ spelar = {
       h = 5,
       }
 
-    if spelar.cooldown == 0 then
+    if spelar.cooldown <= 0 then
       table.insert(spelar.bullets, bullet)
       spelar.cooldown = 20
     end
