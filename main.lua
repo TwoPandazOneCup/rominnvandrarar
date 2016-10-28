@@ -87,17 +87,24 @@ function love.update(dt)
 
   elseif gameState == "meny" then
 
-    for i , v in 90 do
-      table.insert(menyObjektAr , menyObjekt)
+    if #menyObjektAr == 0 then
+      for i = 1, 5 do
+        table.insert(menyObjektAr , menyObjekt)
+      end
     end
 
-    function love.keyreleased(key)
-      if key == oppKnapp and menyvalg > 1 then
-        menyvalg = menyvalg - 1 end
-      if key == nedKnapp and menyvalg < 5 then
-        menyvalg = menyvalg + 1 end
-    end
+    for i, v in pairs(menyObjektAr) do
 
+      function love.keyreleased(key)
+        if key == oppKnapp and menyvalg > 1 then
+          menyvalg = menyvalg - 1 end
+        if key == nedKnapp and menyvalg < 5 then
+          menyvalg = menyvalg + 1 end
+      end
+
+      if menyvalg == i then
+        v.farge = menyObjekt.erValdFarge end
+    end
   end
 
 end
@@ -135,12 +142,14 @@ elseif gameState == "meny" then
 
   for i, v in pairs(menyObjektAr) do
     love.graphics.setColor(v.farge)
-    love.graphics.rectangle("fill", v.x, v.y +  10 , v.w, v.h)
+    love.graphics.rectangle("fill", v.x, v.y +  ((i - 1) * 100) , v.w, v.h)
   end
 
 
   love.graphics.setColor(255,255,255)
     love.graphics.print(menyvalg, 50, 50)
     love.graphics.print("meny", 50, 70)
+    love.graphics.print(#menyObjektAr, 50, 90)
+
   end
 end
