@@ -35,23 +35,21 @@ function oppdaterSpelar (dt)
 
 
   if spelar.liv <= 0 then
-    gameState = "dead"
+    gameState = "dead" end
+
+  if spelar.poeng > 1000 then
+    spelar.liv = spelar.liv + 1
+    spelar.poeng = 0 
   end
 
-  if gameState == "dead" and love.keyboard.isDown(omstartKnapp) then
-    gameState = "playing"
-    spelar.liv = spelar.startLiv
-    spelar.poeng = 0
-    enemies_controller.enemies = {}
-
-
-  end
-
-  if spelar.cooldown >= 1 then
+  if spelar.cooldown > 1 then
     spelar.cooldown = spelar.cooldown - 1 end
 
   if love.keyboard.isDown(skyteKnapp) then
-    spelar.fire()end
+    spelar.fire() end
+
+  if love.keyboard.isDown(menyKnapp) then
+    gameState = "meny" end
 
   if love.keyboard.isDown(hoppKnapp) then
     spelar.y = vindauge.ymax - 20 - spelar.hoppHogd

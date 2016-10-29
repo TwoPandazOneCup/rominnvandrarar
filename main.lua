@@ -4,6 +4,9 @@ function love.load(arg)
   dofile "funksjonar.lua"
   dofile "hovudmeny.lua"
   dofile "definisjonar.lua"
+  litenfiendeBilete = love.graphics.newImage("bilete/litenfiende.png")
+  storFiendeBilete = love.graphics.newImage("bilete/storFiende.png")
+  vidFiendeBilete = love.graphics.newImage("bilete/vidFiende.png")
   gameState = "meny"
   menyvalg = 1
   NY_FIENDE_TIMER = 100
@@ -22,17 +25,26 @@ function love.update(dt)
     tellar = 4
   }
 
-
-  oppdaterOgSpawn(dt)
-  oppdaterSpelar(dt, vindauge.ymax, vindauge.xmax)
-
-  for i,v in pairs(spelar.bullets) do
-    if v.y < vindauge.ymin then
-      table.remove(spelar.bullets, i) end
-    v.y = v.y - spelar.bulletSpeed
+  if gameState == "dead" and love.keyboard.isDown(omstartKnapp) then
+    gameState = "playing"
+    spelar.liv = spelar.startLiv
+    spelar.poeng = 0
+    enemies_controller.enemies = {}
   end
 
+
+
   if gameState == "playing" then
+
+    oppdaterOgSpawn(dt)
+    oppdaterSpelar(dt, vindauge.ymax, vindauge.xmax)
+
+    for i,v in pairs(spelar.bullets) do
+      if v.y < vindauge.ymin then
+        table.remove(spelar.bullets, i) end
+      v.y = v.y - spelar.bulletSpeed
+    end
+
     for i, v in pairs(enemies_controller.enemies) do
 
 
@@ -100,10 +112,16 @@ function love.update(dt)
           menyvalg = menyvalg - 1 end
         if key == nedKnapp and menyvalg < 5 then
           menyvalg = menyvalg + 1 end
+        if key == skyteKnapp then
+          gameState = "playing"
+          vanskelegHeitsGrad = menyvalg
+        end
       end
 
       if menyvalg == i then
         v.farge = menyObjekt.erValdFarge end
+
+
     end
   end
 
@@ -118,7 +136,8 @@ function love.draw()
       end
 
       for i, e in pairs(enemies_controller.enemies) do
-        love.graphics.rectangle("fill", e.x, e.y, e.width, e.height)
+        love.graphics.setColor(e.farge)
+        love.graphics.draw(e.img, e.x, e.y)
       end
 
       love.graphics.setColor(spelar.farge)
@@ -129,6 +148,8 @@ function love.draw()
       love.graphics.print(spelar.liv, 50, 50)
       love.graphics.print(spelar.poeng, 50, 70)
       love.graphics.print(spelar.cooldown, 50, 90)
+
+      love.graphics.setBackgroundColor(255, 255, 255)
 
 elseif gameState == "dead" then
     love.graphics.print("du er dau trykk på r for å restarte", 50, 50)
@@ -143,7 +164,7 @@ elseif gameState == "meny" then
 
   love.graphics.setColor(255,255,255)
     love.graphics.print(menyvalg, 50, 50)
-    love.graphics.print("meny", 50, 70)
+    love.graphics.print(gameState, 50, 70)
     love.graphics.print(#menyObjektAr, 50, 90)
 
   end

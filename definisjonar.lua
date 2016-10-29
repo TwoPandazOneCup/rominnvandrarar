@@ -3,8 +3,9 @@ vensteKnapp = "a"
 oppKnapp = "w"
 nedKnapp = "s"
 hoppKnapp = "lctrl"
-skyteKnapp = "space"
+skyteKnapp = " "
 omstartKnapp = "r"
+menyKnapp = "escape"
 
 menyObjekt = {
   x = 10,
