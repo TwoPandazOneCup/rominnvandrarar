@@ -39,7 +39,7 @@ function oppdaterSpelar (dt)
 
   if spelar.poeng > 1000 then
     spelar.liv = spelar.liv + 1
-    spelar.poeng = 0 
+    spelar.poeng = 0
   end
 
   if spelar.cooldown > 1 then

@@ -17,6 +17,10 @@ end
 
 function love.update(dt)
 
+  if love.keyboard.isDown("q") then
+    love.event.quit(1) end
+
+
   vindauge = {
     xmin = 0,
     xmax = love.graphics.getWidth(),
@@ -60,8 +64,8 @@ function love.update(dt)
 
 
         if CheckCollision(
-          v.x, v.y, v.height, v.width,
-          spelar.x, spelar.y, spelar.height, spelar.width
+          v.x, v.y, v.width, v.height,
+          spelar.x, spelar.y, spelar.width, spelar.height
         ) then
           spelar.liv = spelar.liv -1
           table.remove(enemies_controller.enemies, i)
@@ -118,15 +122,14 @@ function love.update(dt)
         end
       end
 
-      if menyvalg == i then
-        v.farge = menyObjekt.erValdFarge end
+
 
 
     end
   end
 
 end
-
+love.getVersion()
 function love.draw()
   if gameState == "playing" then
 
@@ -148,6 +151,7 @@ function love.draw()
       love.graphics.print(spelar.liv, 50, 50)
       love.graphics.print(spelar.poeng, 50, 70)
       love.graphics.print(spelar.cooldown, 50, 90)
+      love.graphics.print(vanskelegHeitsGrad, 50, 110)
 
       love.graphics.setBackgroundColor(255, 255, 255)
 
@@ -157,7 +161,11 @@ elseif gameState == "dead" then
 elseif gameState == "meny" then
 
   for i, v in pairs(menyObjektAr) do
-    love.graphics.setColor(v.farge)
+    if i == menyvalg then
+      love.graphics.setColor(v.erValdFarge)
+    else
+      love.graphics.setColor(v.farge)
+    end
     love.graphics.rectangle("fill", v.x, v.y +  ((i - 1) * 100) , vindauge.xmax - v.x * 2, v.h)
   end
 
