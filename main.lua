@@ -142,7 +142,7 @@ elseif gameState == "meny" then
 
   for i, v in pairs(menyObjektAr) do
     love.graphics.setColor(v.farge)
-    love.graphics.rectangle("fill", v.x, v.y +  ((i - 1) * 100) , v.w, v.h)
+    love.graphics.rectangle("fill", v.x, v.y +  ((i - 1) * 100) , vindauge.xmax - v.x * 2, v.h)
   end
 
 
